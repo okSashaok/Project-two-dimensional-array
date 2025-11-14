@@ -26,8 +26,8 @@ public class Main{
         byte cache;
         final byte MAX = SIZE - 1
         , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; l0 < SIZE;){//annular displacement
-            for(l1 = l0; l1 < SIZE;){
+        for(byte l0 = 0, l1; ; ){//annular displacement
+            for(l1 = l0; ; ){
                 cache = array[l0][l1];
                 array[l0][l1] = array[MAX - l1][l0];
                 array[MAX - l1][l0] = array[MAX - l0][MAX - l1];
@@ -44,11 +44,11 @@ public class Main{
         byte cache;
         final byte MAX = SIZE - 1
         , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; l0 < SIZE;){//mirror shift
+        for(byte l0 = 0, l1; ; ){//annular displacement
             for(l1 = 0; l1 < SIZE; ++l1){
                 cache = array[l0][l1];
-                array[l0][l1] = array[MAX - l0][l1];
-                array[MAX - l0][l1] = cache;
+                array[l0][l1] = array[MAX - l0][MAX - l1];
+                array[MAX - l0][MAX - l1] = cache;
             }
             if(MIDDLE > ++l0){ continue; }
             break;
@@ -58,8 +58,8 @@ public class Main{
         byte cache;
         final byte MAX = SIZE - 1
         , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; l0 < SIZE;){//annular displacement
-            for(l1 = l0; l1 < SIZE;){
+        for(byte l0 = 0, l1; ; ){//annular displacement
+            for(l1 = l0; ; ){
                 cache = array[l0][l1];
                 array[l0][l1] = array[l1][MAX - l0];
                 array[l1][MAX - l0] = array[MAX - l0][MAX - l1];
