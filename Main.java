@@ -1,129 +1,140 @@
 import java.util.Scanner;
+import java.util.Random;
 
-public class Main{
+public class Main {
     private final static Scanner scanner = new Scanner(System.in);
-    private static final byte OFFSET_ZERO = 127
-    , SIZE = 8;
-    private static final short[][] SAMPLE = {
-        { 114, 112, 148,  83, 204,  22, 125,  31 }
-        ,{ 192, 231, 245, 128,  63, 246, 139,  17 }
-        ,{  61, 128, 224, 45,  91,  57, 239,  34 }
-        ,{ 219, 237, 167, 191, 236, 146, 144, 117 }
-        ,{  35, 199, 102, 124, 208, 195,  21, 147 }
-        ,{  52, 229, 126,  32,  24, 145,  19,  39 }
-        ,{ 107,  43, 190,  43,  47, 172,  18,  19 }
-        ,{  62, 221,   6, 208, 241, 198, 187,  85 }
-    };
-    private static byte[][] array = new byte[SIZE][SIZE];
-    private static void conversion(){
-        for(byte l0 = 0, l1; l0 < SIZE; ++l0){
-            for(l1 = 0; l1 < SIZE; ++l1){
-                array[l0][l1] = (byte)(SAMPLE[l0][l1] - OFFSET_ZERO);//random.nextInt(256);
+    private static final byte OFFSET_ZERO = -128;
+    private static final byte SIZE = 8;
+
+    private static void conversion(byte array[][]) {
+        for (byte l0 = 0, l1; l0 < SIZE; ++l0) {
+            for (l1 = 0; l1 < SIZE; ++l1) {
+                Random random = new Random();
+                array[l0][l1] = (byte) (OFFSET_ZERO + random.nextInt(256));
             }
         }
     }
-    private static void turn90DegreeRight(){
+
+    private static void turn90DegreeRight(byte array[][]) {
         byte cache;
-        final byte MAX = SIZE - 1
-        , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; ; ){//annular displacement
-            for(l1 = l0; ; ){
+        final byte MAX = SIZE - 1;
+        final byte MIDDLE = SIZE / 2;
+        for (byte l0 = 0, l1;;) {// annular displacement
+            for (l1 = l0;;) {
                 cache = array[l0][l1];
                 array[l0][l1] = array[MAX - l1][l0];
                 array[MAX - l1][l0] = array[MAX - l0][MAX - l1];
                 array[MAX - l0][MAX - l1] = array[l1][MAX - l0];
                 array[l1][MAX - l0] = cache;
-                if(MAX - l0 > ++l1){ continue; }
+                if (MAX - l0 > ++l1) {
+                    continue;
+                }
                 break;
             }
-            if(MIDDLE > ++l0){ continue; }
+            if (MIDDLE > ++l0) {
+                continue;
+            }
             break;
         }
     }
-    private static void turn180DegreeRight(){
+
+    private static void turn180DegreeRight(byte array[][]) {
         byte cache;
-        final byte MAX = SIZE - 1
-        , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; ; ){//annular displacement
-            for(l1 = 0; l1 < SIZE; ++l1){
+        final byte MAX = SIZE - 1;
+        final byte MIDDLE = SIZE / 2;
+        for (byte l0 = 0, l1;;) {// annular displacement
+            for (l1 = 0; l1 < SIZE; ++l1) {
                 cache = array[l0][l1];
                 array[l0][l1] = array[MAX - l0][MAX - l1];
                 array[MAX - l0][MAX - l1] = cache;
             }
-            if(MIDDLE > ++l0){ continue; }
+            if (MIDDLE > ++l0) {
+                continue;
+            }
             break;
         }
     }
-    private static void turn270DegreeRight(){
+
+    private static void turn270DegreeRight(byte array[][]) {
         byte cache;
-        final byte MAX = SIZE - 1
-        , MIDDLE = SIZE / 2;
-        for(byte l0 = 0, l1; ; ){//annular displacement
-            for(l1 = l0; ; ){
+        final byte MAX = SIZE - 1;
+        final byte MIDDLE = SIZE / 2;
+        for (byte l0 = 0, l1;;) {// annular displacement
+            for (l1 = l0;;) {
                 cache = array[l0][l1];
                 array[l0][l1] = array[l1][MAX - l0];
                 array[l1][MAX - l0] = array[MAX - l0][MAX - l1];
                 array[MAX - l0][MAX - l1] = array[MAX - l1][l0];
                 array[MAX - l1][l0] = cache;
-                if(MAX - l0 > ++l1){ continue; }
+                if (MAX - l0 > ++l1) {
+                    continue;
+                }
                 break;
             }
-            if(MIDDLE > ++l0){ continue; }
+            if (MIDDLE > ++l0) {
+                continue;
+            }
             break;
         }
     }
-    private static void outputMatrices(){
-        for(byte l0 = 0, l1; l0 < SIZE; ++l0){
+
+    private static void outputMatrices(byte array[][]) {
+        for (byte l0 = 0, l1; l0 < SIZE; ++l0) {
             System.out.print("\n");
-            for(l1 = 0; l1 < SIZE; ++l1){
-                if(array[l0][l1] < -117){
-                    System.out.print("   " + (array[l0][l1] + OFFSET_ZERO));
-                }
-                else if(array[l0][l1] < -27){
-                    System.out.print("  " + (array[l0][l1] + OFFSET_ZERO));
-                }
-                else{
-                    System.out.print(" " + (array[l0][l1] + OFFSET_ZERO));
+            for (l1 = 0; l1 < SIZE; ++l1) {
+                if (array[l0][l1] < -118) {
+                    System.out.print("   " + (array[l0][l1] - OFFSET_ZERO));
+                } else if (array[l0][l1] < -28) {
+                    System.out.print("  " + (array[l0][l1] - OFFSET_ZERO));
+                } else {
+                    System.out.print(" " + (array[l0][l1] - OFFSET_ZERO));
                 }
             }
         }
     }
-    private static byte menu(){
+
+    private static byte menu(byte array[][]) {
         System.out.print("""
 
 
-Выберите градус разворота матрицы в право:
-1 – 90 градусов.
-2 – 180 градусов.
-3 – 270 градусов.
->"""
-        );
-        switch(scanner.nextLine()){
-            case"1":{
-                turn90DegreeRight();
+                Выберите градус разворота матрицы в право:
+                1 – 90 градусов.
+                2 – 180 градусов.
+                3 – 270 градусов.
+                >""");
+        switch (scanner.nextLine()) {
+            case "1": {
+                turn90DegreeRight(array);
                 System.out.print("\nРазворот матрицы на 90 градусов в право:\n");
-                outputMatrices();
-            }return 0;
-            case"2":{
-                turn180DegreeRight();
+                outputMatrices(array);
+            }
+                return 0;
+            case "2": {
+                turn180DegreeRight(array);
                 System.out.print("\nРазворот матрицы на 180 градусов в право:\n");
-                outputMatrices();
-            }return 0;
-            case"3":{
-                turn270DegreeRight();
+                outputMatrices(array);
+            }
+                return 0;
+            case "3": {
+                turn270DegreeRight(array);
                 System.out.print("\nРазворот матрицы на 270 градусов в право:\n");
-                outputMatrices();
-            }return 0;
-            default:{
+                outputMatrices(array);
+            }
+                return 0;
+            default: {
                 System.out.print("Ошибка ввода!\n");
-            }return 1;
+            }
+                return 1;
         }
     }
-    public static void main(String[] args){
-        conversion();
+
+    public static void main(String[] args) {
+        byte[][] array = new byte[SIZE][SIZE];
+        conversion(array);
         System.out.print("\nДана следующая матрица:\n");
-        outputMatrices();
-        while(menu() != 0);
+        outputMatrices(array);
+        while (menu(array) != 0)
+            ;
         System.out.print("\n\n");
     }
 }
