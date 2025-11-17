@@ -20,72 +20,39 @@ public class Main {
         }
     }
 
-    private static void turn90DegreeRight() {
+    private static void turnRight(final String SELECTED_OPTION) {
         final byte MAX = SIZE - 1;
-        final byte MIDDLE = SIZE / 2;
         final byte[][] matrice1 = matrices[0];
         final byte[][] matrice2 = matrices[1];
-        for (byte l0 = 0, l1;;) {// annular displacement
-            for (l1 = l0;;) {
-                matrice2[l1][MAX - l0] = matrice1[l0][l1];
-                matrice2[l0][l1] = matrice1[MAX - l1][l0];
-                matrice2[MAX - l1][l0] = matrice1[MAX - l0][MAX - l1];
-                matrice2[MAX - l0][MAX - l1] = matrice1[l1][MAX - l0];
-                if (MAX - l0 > ++l1) {
-                    continue;
+        switch (SELECTED_OPTION) {
+            case OPTION_90: {
+                for (byte l0 = 0, l1; l0 < SIZE; ++l0) {// annular displacement
+                    for (l1 = 0; l1 < SIZE; ++l1) {
+                        matrice2[l1][MAX - l0] = matrice1[l0][l1];
+                    }
                 }
+            }
                 break;
-            }
-            if (MIDDLE > ++l0) {
-                continue;
-            }
-            break;
-        }
-    }
-
-    private static void turn180DegreeRight() {
-        final byte MAX = SIZE - 1;
-        final byte MIDDLE = SIZE / 2;
-        final byte[][] matrice1 = matrices[0];
-        final byte[][] matrice2 = matrices[1];
-        for (byte l0 = 0, l1;;) {// annular displacement
-            for (l1 = 0; l1 < SIZE; ++l1) {
-                matrice2[MAX - l0][MAX - l1] = matrice1[l0][l1];
-                matrice2[l0][l1] = matrice1[MAX - l0][MAX - l1];
-            }
-            if (MIDDLE > ++l0) {
-                continue;
-            }
-            break;
-        }
-    }
-
-    private static void turn270DegreeRight() {
-        final byte MAX = SIZE - 1;
-        final byte MIDDLE = SIZE / 2;
-        final byte[][] matrice1 = matrices[0];
-        final byte[][] matrice2 = matrices[1];
-        for (byte l0 = 0, l1;;) {// annular displacement
-            for (l1 = l0;;) {
-                matrice2[MAX - l1][l0] = matrice1[l0][l1];
-                matrice2[l0][l1] = matrice1[l1][MAX - l0];
-                matrice2[l1][MAX - l0] = matrice1[MAX - l0][MAX - l1];
-                matrice2[MAX - l0][MAX - l1] = matrice1[MAX - l1][l0];
-                if (MAX - l0 > ++l1) {
-                    continue;
+            case OPTION_180: {
+                for (byte l0 = 0, l1; l0 < SIZE; ++l0) {// annular displacement
+                    for (l1 = 0; l1 < SIZE; ++l1) {
+                        matrice2[MAX - l0][MAX - l1] = matrice1[l0][l1];
+                    }
                 }
+            }
                 break;
+            case OPTION_270: {
+                for (byte l0 = 0, l1; l0 < SIZE; ++l0) {// annular displacement
+                    for (l1 = 0; l1 < SIZE; ++l1) {
+                        matrice2[MAX - l1][l0] = matrice1[l0][l1];
+                    }
+                }
             }
-            if (MIDDLE > ++l0) {
-                continue;
-            }
-            break;
+                break;
         }
     }
 
     private static void outputMatrices(final String SELECTED_OPTION) {
-        final byte UNSIGNED_CHAR_10 = -118;
-        final byte UNSIGNED_CHAR_100 = -28;
         for (byte l0 = 0, l1, l2; l0 < matrices.length; ++l0) {
             final byte[][] matrice = matrices[l0];
             if (l0 == 0) {
@@ -109,13 +76,7 @@ public class Main {
             for (l1 = 0; l1 < SIZE; ++l1) {
                 System.out.print("\n");
                 for (l2 = 0; l2 < SIZE; ++l2) {
-                    if (matrice[l1][l2] < UNSIGNED_CHAR_10) {
-                        System.out.print("   " + (matrice[l1][l2] - OFFSET_ZERO));
-                    } else if (matrice[l1][l2] < UNSIGNED_CHAR_100) {
-                        System.out.print("  " + (matrice[l1][l2] - OFFSET_ZERO));
-                    } else {
-                        System.out.print(" " + (matrice[l1][l2] - OFFSET_ZERO));
-                    }
+                    System.out.printf("%4d", (matrice[l1][l2] - OFFSET_ZERO));
                 }
             }
         }
@@ -132,17 +93,17 @@ public class Main {
                 >""");
         switch (scanner.nextLine()) {
             case OPTION_90: {
-                turn90DegreeRight();
+                turnRight(OPTION_90);
                 outputMatrices(OPTION_90);
             }
                 return 0;
             case OPTION_180: {
-                turn180DegreeRight();
+                turnRight(OPTION_180);
                 outputMatrices(OPTION_180);
             }
                 return 0;
             case OPTION_270: {
-                turn270DegreeRight();
+                turnRight(OPTION_270);
                 outputMatrices(OPTION_270);
             }
                 return 0;
