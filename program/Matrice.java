@@ -31,15 +31,15 @@ public class Matrice {
                 >""");
         switch (scanner.nextLine()) {
             case "1": {
-                option = 1;
+                option = OPTION_90;
             }
                 return true;
             case "2": {
-                option = 2;
+                option = OPTION_180;
             }
                 return true;
             case "3": {
-                option = 3;
+                option = OPTION_270;
             }
                 return true;
             default: {
