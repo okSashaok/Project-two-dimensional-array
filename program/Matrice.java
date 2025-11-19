@@ -13,8 +13,8 @@ public class Matrice {
 
     public void creationSquare(byte[][] matrice) {
         Random random = new Random();
-        for (byte i = 0, j; i < matrice.length; ++i) {
-            for (j = 0; j < matrice.length; ++j) {
+        for (byte i = 0; i < matrice.length; i++) {
+            for (byte j = 0; j < matrice.length; j++) {
                 matrice[i][j] = (byte) (OFFSET_ZERO + random.nextInt(256));
             }
         }
@@ -57,24 +57,24 @@ public class Matrice {
         final byte MAX = (byte) (matrice.length - 1);
         switch (option) {
             case OPTION_90: {
-                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
-                    for (j = 0; j < matrice.length; ++j) {
+                for (byte i = 0; i < matrice.length; i++) {// annular displacement
+                    for (byte j = 0; j < matrice.length; j++) {
                         getMatrice[j][MAX - i] = matrice[i][j];
                     }
                 }
             }
             break;
             case OPTION_180: {
-                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
-                    for (j = 0; j < matrice.length; ++j) {
+                for (byte i = 0; i < matrice.length; i++) {// annular displacement
+                    for (byte j = 0; j < matrice.length; j++) {
                         getMatrice[MAX - i][MAX - j] = matrice[i][j];
                     }
                 }
             }
             break;
             case OPTION_270: {
-                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
-                    for (j = 0; j < matrice.length; ++j) {
+                for (byte i = 0; i < matrice.length; i++) {// annular displacement
+                    for (byte j = 0; j < matrice.length; j++) {
                         getMatrice[MAX - j][i] = matrice[i][j];
                     }
                 }
@@ -85,9 +85,9 @@ public class Matrice {
     }
 
     public void outputSquareMatrice(final byte[][] matrice) {
-        for (byte i = 0, j; i < matrice.length; ++i) {
+        for (byte i = 0; i < matrice.length; i++) {
             System.out.print("\n");
-            for (j = 0; j < matrice.length; ++j) {
+            for (byte j = 0; j < matrice.length; j++) {
                 System.out.printf("%4d", (matrice[i][j] - OFFSET_ZERO));
             }
         }
