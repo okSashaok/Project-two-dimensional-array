@@ -7,8 +7,7 @@ public class Main {
         Matrice matrice = new Matrice();
         byte[][] canvas = new byte[SIZE][SIZE];
         matrice.creationSquare(canvas);
-        while (!matrice.menu())
-            ;
+        while (!matrice.menu()) ;
         byte[][] turnedCanvas = matrice.turnSquareRight(canvas);
         System.out.print("\nДана следующая матрица:\n");
         matrice.outputSquareMatrice(canvas);

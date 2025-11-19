@@ -13,17 +13,17 @@ public class Matrice {
 
     public void creationSquare(byte[][] matrice) {
         Random random = new Random();
-        for (byte l0 = 0, l1; l0 < matrice.length; ++l0) {
-            for (l1 = 0; l1 < matrice.length; ++l1) {
-                matrice[l0][l1] = (byte) (OFFSET_ZERO + random.nextInt(256));
+        for (byte i = 0, j; i < matrice.length; ++i) {
+            for (j = 0; j < matrice.length; ++j) {
+                matrice[i][j] = (byte) (OFFSET_ZERO + random.nextInt(256));
             }
         }
     }
 
     public boolean menu() {
         System.out.print("""
-
-
+                
+                
                 Выберите градус разворота матрицы в право:
                 1 – 90 градусов.
                 2 – 180 градусов.
@@ -33,19 +33,19 @@ public class Matrice {
             case "1": {
                 option = OPTION_90;
             }
-                return true;
+            return true;
             case "2": {
                 option = OPTION_180;
             }
-                return true;
+            return true;
             case "3": {
                 option = OPTION_270;
             }
-                return true;
+            return true;
             default: {
                 System.out.print("Ошибка ввода!\n");
             }
-                return false;
+            return false;
         }
     }
 
@@ -57,38 +57,38 @@ public class Matrice {
         final byte MAX = (byte) (matrice.length - 1);
         switch (option) {
             case OPTION_90: {
-                for (byte l0 = 0, l1; l0 < matrice.length; ++l0) {// annular displacement
-                    for (l1 = 0; l1 < matrice.length; ++l1) {
-                        getMatrice[l1][MAX - l0] = matrice[l0][l1];
+                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
+                    for (j = 0; j < matrice.length; ++j) {
+                        getMatrice[j][MAX - i] = matrice[i][j];
                     }
                 }
             }
-                break;
+            break;
             case OPTION_180: {
-                for (byte l0 = 0, l1; l0 < matrice.length; ++l0) {// annular displacement
-                    for (l1 = 0; l1 < matrice.length; ++l1) {
-                        getMatrice[MAX - l0][MAX - l1] = matrice[l0][l1];
+                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
+                    for (j = 0; j < matrice.length; ++j) {
+                        getMatrice[MAX - i][MAX - j] = matrice[i][j];
                     }
                 }
             }
-                break;
+            break;
             case OPTION_270: {
-                for (byte l0 = 0, l1; l0 < matrice.length; ++l0) {// annular displacement
-                    for (l1 = 0; l1 < matrice.length; ++l1) {
-                        getMatrice[MAX - l1][l0] = matrice[l0][l1];
+                for (byte i = 0, j; i < matrice.length; ++i) {// annular displacement
+                    for (j = 0; j < matrice.length; ++j) {
+                        getMatrice[MAX - j][i] = matrice[i][j];
                     }
                 }
             }
-                break;
+            break;
         }
         return getMatrice;
     }
 
     public void outputSquareMatrice(final byte[][] matrice) {
-        for (byte l0 = 0, l1; l0 < matrice.length; ++l0) {
+        for (byte i = 0, j; i < matrice.length; ++i) {
             System.out.print("\n");
-            for (l1 = 0; l1 < matrice.length; ++l1) {
-                System.out.printf("%4d", (matrice[l0][l1] - OFFSET_ZERO));
+            for (j = 0; j < matrice.length; ++j) {
+                System.out.printf("%4d", (matrice[i][j] - OFFSET_ZERO));
             }
         }
         System.out.print("\n");
